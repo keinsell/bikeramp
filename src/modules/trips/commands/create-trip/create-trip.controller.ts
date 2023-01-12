@@ -1,8 +1,8 @@
 import { Body, Controller, Post } from '@nestjs/common'
 import { CreateTripService } from './create-trip.service'
 import { ControllerExecutor } from 'src/common/controller'
-import { CreateTripResponse } from './create-trip.response'
-import { CreateTripRequest } from './create-trip.request'
+import { CreateTripResponse } from './data-transfering/create-trip.response'
+import { CreateTripRequest } from './data-transfering/create-trip.request'
 import { ApiCreatedResponse } from '@nestjs/swagger'
 
 /** This endpoint logs the trip and automatically calculates the distance between start and destination addresses. */
