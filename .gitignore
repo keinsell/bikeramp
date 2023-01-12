@@ -37,3 +37,6 @@ lerna-debug.log*
 # https://devenv.sh
 .devenv*
 devenv.local.nix
+
+# Environtment variables
+.env
