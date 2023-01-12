@@ -1,4 +1,4 @@
-import { Entity } from 'src/common/domain/entity'
+import { Entity } from '../../common/domain/entity'
 import { Coordinates } from '../geocoding/entities/coordinates'
 import { Distance } from '../geocoding/entities/distance'
 import { Dinero } from 'dinero.js'

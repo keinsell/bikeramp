@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common'
-import { Usecase } from 'src/common/domain/usecase/usecase'
-import { GeocodingService } from 'src/modules/geocoding/geocoding.adapter'
+import { GeocodingService } from '../../../../modules/geocoding/geocoding.adapter'
 import { CreateTripResponse } from './data-transfering/create-trip.response'
 import { TripRepository } from '../../trip.repository'
 import { CreateTripRequest } from './data-transfering/create-trip.request'
 import { Trip } from '../../trip.entity'
 import { dinero, toDecimal } from 'dinero.js'
 import { PLN } from '@dinero.js/currencies'
+import { Usecase } from '../../../../common/domain/usecase/usecase'
 
 // TODO:
 @Injectable()

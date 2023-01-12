@@ -1,11 +1,11 @@
-import { Mapper } from 'src/common/persistance/mapper'
 import { Trip } from './trip.entity'
-import { DatabaseRecords } from 'src/configuration/database-records'
 import { Prisma, Trip as _Trip } from '@prisma/client'
 import { Injectable } from '@nestjs/common'
 import { dinero } from 'dinero.js'
 import { PLN } from '@dinero.js/currencies'
 import { Distance } from '../geocoding/entities/distance'
+import { DatabaseRecords } from '../../configuration/database-records'
+import { Mapper } from '../../common/persistance/mapper'
 
 @Injectable()
 export class TripMapper implements Mapper<Trip, DatabaseRecords.TripCreateRecord, DatabaseRecords.TripRecord> {
