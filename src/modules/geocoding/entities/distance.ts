@@ -10,7 +10,7 @@ export class Distance {
   }
 
   toString() {
-    return `${this.baseScalar} km`
+    return `${this.baseScalar.toFixed(2)} km`
   }
 
   toMeters() {

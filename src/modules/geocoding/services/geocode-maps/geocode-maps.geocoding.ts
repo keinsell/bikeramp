@@ -31,6 +31,6 @@ export class GeocodeMapsGeocodingService extends GeocodingService {
       throw new Error('No coordinates found')
     }
 
-    return new Coordinates(Number.parseInt(lat), Number.parseInt(lon))
+    return new Coordinates(Number.parseFloat(lat), Number.parseFloat(lon))
   }
 }
