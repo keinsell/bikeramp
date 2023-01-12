@@ -42,6 +42,8 @@ export class Coordinates {
 
     const d = R * c // in metres
 
+    console.log('Distance between coordinates:', d)
+
     return Distance.fromMeters(d)
   }
 }

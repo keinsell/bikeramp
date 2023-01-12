@@ -18,7 +18,8 @@ export class CreateTripService implements Usecase<CreateTripRequest, CreateTripR
     const coordinatedOfStartingPoint = await this.geocodingService.getCoordinates(request.start_address)
     const coordinatedOfDestinationPoint = await this.geocodingService.getCoordinates(request.destination_address)
 
-    const distance = coordinatedOfDestinationPoint.getDistanceBetweenCoordinates(coordinatedOfDestinationPoint)
+    const distance = coordinatedOfStartingPoint.getDistanceBetweenCoordinates(coordinatedOfDestinationPoint)
+
     const price = dinero({ amount: request.price * 100, currency: PLN })
 
     let trip = new Trip({
@@ -31,7 +32,7 @@ export class CreateTripService implements Usecase<CreateTripRequest, CreateTripR
       endCoordinates: coordinatedOfDestinationPoint,
     })
 
-    // trip = await this.tripRepository.save(trip)
+    trip = await this.tripRepository.save(trip)
 
     const formattedPrice = toDecimal(trip.properties.price, ({ value, currency }) => `${value} ${currency.code}`)
 

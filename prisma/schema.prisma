@@ -10,7 +10,11 @@ datasource db {
   url      = env("DATABASE_URI")
 }
 
-// TODO(#2): Add Trip Model
 model Trip {
-  id        String      @id @default(cuid())
+  id                   String   @id @default(cuid())
+  date                 DateTime @default(now())
+  startingAddress      String
+  endingAddress        String
+  distanceInKilometers Float
+  priceInPLN           Float
 }

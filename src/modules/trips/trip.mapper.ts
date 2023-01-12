@@ -3,13 +3,31 @@ import { Trip } from './trip.entity'
 import { DatabaseRecords } from 'src/configuration/database-records'
 import { Prisma, Trip as _Trip } from '@prisma/client'
 import { Injectable } from '@nestjs/common'
+import { dinero } from 'dinero.js'
+import { PLN } from '@dinero.js/currencies'
+import { Distance } from '../geocoding/entities/distance'
 
 @Injectable()
 export class TripMapper implements Mapper<Trip, DatabaseRecords.TripCreateRecord, DatabaseRecords.TripRecord> {
   toPersistence(entity: Trip): Prisma.TripCreateInput {
-    throw new Error('Method not implemented.')
+    return {
+      startingAddress: entity.properties.startAddress,
+      endingAddress: entity.properties.endAddress,
+      priceInPLN: entity.properties.price.toJSON().amount / 100,
+      date: entity.properties.date,
+      distanceInKilometers: entity.properties.distance.baseScalar,
+    }
   }
   toDomain(record: _Trip): Trip {
-    throw new Error('Method not implemented.')
+    return new Trip(
+      {
+        startAddress: record.startingAddress,
+        endAddress: record.endingAddress,
+        price: dinero({ amount: record.priceInPLN * 100, currency: PLN }),
+        date: record.date,
+        distance: new Distance(record.distanceInKilometers),
+      },
+      record.id,
+    )
   }
 }
