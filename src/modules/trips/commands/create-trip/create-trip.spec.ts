@@ -28,9 +28,9 @@ describe('CreateTripController', () => {
   })
 
   describe('root', () => {
-    it('should return "Hello World!"', () => {
+    it('should return "Hello World!"', async () => {
       expect(
-        appController.executeImplementation({
+        await appController.executeImplementation({
           start_address: 'Plac Europejski 2, Warszawa, Polska',
           destination_address: 'Kraków, Polska',
           price: 1000,
