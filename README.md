@@ -8,12 +8,12 @@ to control your work.
 [![CI](https://github.com/keinsell/bikeramp/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/keinsell/bikeramp/actions/workflows/main.yml)
 [![codecov](https://codecov.io/gh/keinsell/bikeramp/branch/main/graph/badge.svg?token=GEa0f1dz4o)](https://codecov.io/gh/keinsell/bikeramp)
 
-# Getting Started
+## Getting Started
 
 The repository has many methods to use it locally, the recommended method is to use docker-compose and set up the entire
 environment in containers, although you can also build the application locally on your machine (this is a slower way).
 
-## With `docker-compose`
+### With `docker-compose`
 
 Docker Compose is the recommended method of using the application, it allows you to build and connect all the required
 services for the application to function. Use the following commands to set up `docker-compose.yml` on your local
@@ -50,7 +50,7 @@ services:
       - POSTGRES_DATABASE=bikeramp
 ```
 
-## With `node`
+### With `node`
 
 In the case of running the application in a local environment pay attention to the configuration in `.env` and use the
 available PostgresSql database, additionally your machine should contain the software listed below:
