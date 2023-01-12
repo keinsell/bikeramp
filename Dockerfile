@@ -18,6 +18,7 @@ FROM node:alpine
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package*.json ./
 COPY --from=builder /app/dist ./dist
+RUN mkdir -p /prisma
 COPY --from=builder /prisma ./prisma
 
 EXPOSE 3000
