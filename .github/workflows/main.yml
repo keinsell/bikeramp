@@ -32,7 +32,13 @@ jobs:
       #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
       - name: Test
-        run: yarn test
+        run: yarn test:cov
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+
+      - name: Test E2E
+        run: yarn test:e2e
 
   build:
     runs-on: ubuntu-latest
