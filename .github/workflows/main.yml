@@ -43,6 +43,9 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
+      - name: Prepare test database
+        run: yarn db:push
+
       # - name: SonarCloud
       #   uses: SonarSource/sonarcloud-github-action@master
       #   env:
