@@ -31,7 +31,7 @@ export class CreateTripService implements Usecase<CreateTripRequest, CreateTripR
 
     // trip = await this.tripRepository.save(trip)
 
-    const formattedPrice = toDecimal(trip.properties.price, ({ value, currency }) => `${currency.code} ${value}`) // "USD 50.00"
+    const formattedPrice = toDecimal(trip.properties.price, ({ value, currency }) => `${value} ${currency.code}`)
 
     return {
       id: trip.id,
