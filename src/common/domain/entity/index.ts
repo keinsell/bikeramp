@@ -1,5 +1,10 @@
 import { nanoid } from 'nanoid'
 
+// ? I really like idea of separing domain logic from persistence layer.
+// ? What we have and use in code should not be the same as what we store in database or we send to user.
+// ? This ensures us to have clean and clear code that is easy to maintain and extend.
+// ? It's archived with usage of Repository and Mapper classes.
+
 /**
  * Entities are pretty much the bread and butter of domain modeling.
  *
