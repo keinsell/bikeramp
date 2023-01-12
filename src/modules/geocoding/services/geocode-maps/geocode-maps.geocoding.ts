@@ -21,14 +21,16 @@ interface GeocodeMapsResponse {
 @Injectable()
 export class GeocodeMapsGeocodingService extends GeocodingService {
   public async getCoordinates(address: string): Promise<Coordinates> {
+    // https://geocode.maps.co/search?q=ul.+Kościuszki+1,+Warszawa
     // https://geocode.maps.co/search?q=%7Baddress%7D
-
-    const response = await got(`https://geocode.maps.co/search?q=${address}`, {
-      responseType: 'json',
-    }).json<GeocodeMapsResponse[]>()
+    const response = await got(`https://geocode.maps.co/search?q=${address}`).json<GeocodeMapsResponse[]>()
 
     const { lat, lon } = response[0]
 
-    return {}
+    if (!lat || !lon) {
+      throw new Error('No coordinates found')
+    }
+
+    return new Coordinates(Number.parseInt(lat), Number.parseInt(lon))
   }
 }
