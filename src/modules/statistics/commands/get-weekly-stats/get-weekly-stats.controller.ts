@@ -7,6 +7,7 @@ import { GetWeeklyStatsResponse } from './get-weekly.stats.response'
 
 /** This endpoint logs the trip and automatically calculates the distance between start and destination addresses. */
 @Controller()
+@ApiCreatedResponse({ description: 'Successfully calculated stats.', type: GetWeeklyStatsResponse })
 export class GetWeeklyStatsController extends ControllerExecutor {
   constructor(private readonly service: GetWeeklyStatsService) {
     super()
