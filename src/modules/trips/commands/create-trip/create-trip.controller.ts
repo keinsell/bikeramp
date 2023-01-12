@@ -10,7 +10,7 @@ export class CreateTripController extends ControllerExecutor {
   }
 
   @Post('/api/trips')
-  protected async executeImplementation(@Body() body: CreateTripService): Promise<CreateTripResponse> {
+  async executeImplementation(@Body() body: CreateTripService): Promise<CreateTripResponse> {
     // I'm going to be honest, I do not know good validation practices in NestJS.
     // So I'll do such in most "genric" idea that I have in my head.
 
