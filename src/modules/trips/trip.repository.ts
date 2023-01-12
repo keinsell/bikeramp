@@ -3,6 +3,9 @@ import { TripMapper } from './trip.mapper'
 import { Injectable } from '@nestjs/common'
 import { Repository } from '../../common/persistance/repository'
 import { PrismaService } from '../../infrastructure/prisma/prisma.service'
+import { Sql } from '@prisma/client/runtime'
+import { Prisma } from '@prisma/client'
+import { getStartAndEndDateOfCurrentWeek } from '../../utilities/get-week-dates'
 
 @Injectable()
 export class TripRepository implements Repository<Trip> {
@@ -38,5 +41,31 @@ export class TripRepository implements Repository<Trip> {
     })
 
     return this.tripMapper.toDomain(place)
+  }
+
+  // TODO: Add prettier formatter for sql
+
+  /** Summarise distance and prices from all trips that happened from monday to sunday in current week. */
+  async getDistanceAndPriceFromTripsInThisWeek(): Promise<{ distance: number; price: number }> {
+    const { start: monday, end: sunday } = getStartAndEndDateOfCurrentWeek()
+
+    const execute = await this.prismaService.$queryRaw<
+      [{ total_distance: number; total_price: number }]
+    >`SELECT SUM("distanceInKilometers") AS total_distance, SUM("priceInPLN") AS total_price FROM public."Trip" WHERE "date" > ${monday} ::timestamp AND "date" < ${sunday} ::timestamp`
+
+    return { distance: Number(execute[0].total_distance ?? 0), price: Number(execute[0].total_price ?? 0) }
+
+    // const allTrips = await this.prismaService.trip.findMany()
+
+    // console.log(allTrips)
+
+    // const tripsThatHappenedThisWeek = allTrips.filter(
+    //   (trip) => trip.date.getTime() > monday.getTime() && trip.date.getTime() < sunday.getTime(),
+    // )
+
+    // const totalDistance = tripsThatHappenedThisWeek.reduce((acc, curr) => acc + curr.distanceInKilometers, 0)
+    // const totalPrice = tripsThatHappenedThisWeek.reduce((acc, curr) => acc + curr.priceInPLN, 0)
+
+    // return { distance: totalDistance, price: totalPrice }
   }
 }
