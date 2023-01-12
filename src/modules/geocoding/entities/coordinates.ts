@@ -22,6 +22,7 @@ export class Coordinates {
     return `${this.latitude},${this.longitude}`
   }
 
+  // TODO: Rename this function to `getDistanceToCoordinates`
   /** Returns `Distance` class from two provided `Coordinates` objects. */
   getDistanceBetweenCoordinates(coordinates: Coordinates): Distance {
     const { latitude: lat1, longitude: lon1 } = this

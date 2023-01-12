@@ -7,7 +7,7 @@ import { Injectable } from '@nestjs/common'
 @Injectable()
 export class TripRepository implements Repository<Trip> {
   constructor(private prismaService: PrismaService, private tripMapper: TripMapper) {}
-  save(entity: Trip): Promise<Trip> {
+  async save(entity: Trip): Promise<Trip> {
     throw new Error('Method not implemented.')
   }
 }

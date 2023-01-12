@@ -15,11 +15,6 @@ export class CreateTripController extends ControllerExecutor {
   @Post('/api/trips')
   @ApiCreatedResponse({ description: 'Successfully saved trip.', type: CreateTripResponse })
   async executeImplementation(@Body() body: CreateTripRequest): Promise<CreateTripResponse> {
-    // I'm going to be honest, I do not know good validation practices in NestJS.
-    // So I'll do such in most "genric" idea that I have in my head.
-
-    // TODO: Validate body
-    // TODO: Execute service
     const response = await this.service.execute(body)
     // TODO: Return either result or error
 

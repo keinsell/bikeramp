@@ -18,7 +18,7 @@ import { nanoid } from 'nanoid'
 export class Entity<T = any> {
   /** Automatically generated (or imported) id of specific entity. Used to reference right object in persistence layer. */
   public readonly id: string | number | any
-  protected readonly properties: T
+  public readonly properties: T
 
   constructor(properties: T, id?: string | number | any) {
     this.properties = properties
