@@ -7,5 +7,10 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = env("DATABASE_URI")
+}
+
+// TODO(#2): Add Trip Model
+model Trip {
+  id        String      @id @default(cuid())
 }
