@@ -5,7 +5,7 @@ import { AppModule } from '../src/application/app.module'
 
 // TODO: Przetestować to na powaznie...
 
-describe('CreateTripController (e2e)', () => {
+describe('create-trip (e2e)', () => {
   let app: INestApplication
 
   beforeEach(async () => {
