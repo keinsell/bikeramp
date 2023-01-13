@@ -7,7 +7,7 @@ services:
     ports:
       - '${PORT}:3000'
     environment:
-      - DATABASE_URI=postgres://${DATABASE_USER}:${DATABASE_PASSWORD}@postgres:5432/${DATABASE_NAME}
+      - DATABASE_URL=postgres://${DATABASE_USER}:${DATABASE_PASSWORD}@postgres:5432/${DATABASE_NAME}
   postgres:
     container_name: ${REPOSITORY_NAME}-postgres
     image: postgres:latest

@@ -22,7 +22,7 @@ machine.
 ```bash
 cp example.env .env
 docker-compose up -d
-docker exec -it bikeramp-server yarn db:push
+docker exec -it bikeramp-server yarn db:push # Sometimes you may need to restart a server with `docker restart bikeramp-server`
 # Voila! Application is running at http://localhost:1337
 ```
 
@@ -38,7 +38,7 @@ services:
     ports:
       - '1337:3000'
     environment:
-      - DATABASE_URI=postgres://sampleuser:sampleuser@postgres:5432/bikeramp
+      - DATABASE_URL=postgres://sampleuser:sampleuser@postgres:5432/bikeramp
   postgres:
     container_name: ${REPOSITORY_NAME}-postgres
     image: postgres:latest
