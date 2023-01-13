@@ -23,32 +23,36 @@ machine.
 git clone git@github.com:keinsell/bikeramp.git && cd bikeramp
 cp example.env .env
 docker-compose up -d
-docker exec -it bikeramp-server yarn db:push # Sometimes you may need to restart a server with `docker restart bikeramp-server`
+docker exec -it bikeramp-server yarn db:push
 # Voila! Application is running at http://localhost:1337
 ```
 
 In case you do not want to pull repository you can pull image from GitHub Package Registry
-(`ghcr.io/keinsell/bikeramp:latest`), here is a example of `docker-compose.yml`.
+`ghcr.io/keinsell/bikeramp:latest`, there is still need for executing `docker exec -it bikeramp-server yarn db:push` to
+migrate database - here is example of `docker-compose.yml` that you can use.
 
 ```yml
 version: '3.7'
 services:
   server:
+    restart: 'on-failure'
+    depends_on:
+      - postgres
     container_name: bikeramp-server
     image: ghcr.io/keinsell/bikeramp:latest
     ports:
       - '1337:3000'
     environment:
-      - DATABASE_URL=postgres://sampleuser:sampleuser@postgres:5432/bikeramp
+      DATABASE_URL: postgres://root:aamEnrMM9Qq42On1dE8MWwp-9epAyRODgzrOZmWHySHg_2t2Ysp563TlMFfnp55u@postgres:5432/bikeramp
   postgres:
-    container_name: ${REPOSITORY_NAME}-postgres
+    container_name: bikeramp-postgres
     image: postgres:latest
     ports:
       - '5432:5432'
     environment:
-      - POSTGRES_USER=sampleuser
-      - POSTGRES_PASSWORD=sampleuser
-      - POSTGRES_DATABASE=bikeramp
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: aamEnrMM9Qq42On1dE8MWwp-9epAyRODgzrOZmWHySHg_2t2Ysp563TlMFfnp55u
+      POSTGRES_DATABASE: bikeramp
 ```
 
 ### With `node`
