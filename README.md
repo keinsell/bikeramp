@@ -62,6 +62,7 @@ available PostgresSql database, additionally your machine should contain the sof
 cp example.env .env
 yarn install
 yarn build
+yarn db:push
 node dist/main.js
 # Voila! Application is running at http://localhost:1337
 ```
