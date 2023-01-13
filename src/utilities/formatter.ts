@@ -1,6 +1,6 @@
 import { PLN } from '@dinero.js/currencies'
 import { dinero, toDecimal } from 'dinero.js'
-import { Distance } from '../modules/geocoding/entities/distance'
+import { Distance } from '../modules/geocoding/entities/distance/distance'
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace Formatter {

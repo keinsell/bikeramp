@@ -1,6 +1,6 @@
 import { Entity } from '../../common/domain/entity'
 import { Coordinates } from '../geocoding/entities/coordinates/coordinates'
-import { Distance } from '../geocoding/entities/distance'
+import { Distance } from '../geocoding/entities/distance/distance'
 import { Dinero } from 'dinero.js'
 
 interface TripProperties {

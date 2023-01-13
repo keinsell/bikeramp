@@ -1,6 +1,6 @@
 import { dinero, toDecimal } from 'dinero.js'
 import { Usecase } from '../../../../common/domain/usecase/usecase'
-import { Distance } from '../../../geocoding/entities/distance'
+import { Distance } from '../../../geocoding/entities/distance/distance'
 import { TripRepository } from '../../../trips/trip.repository'
 import { GetWeeklyStatsResponse } from './get-weekly.stats.response'
 import { PLN } from '@dinero.js/currencies'
