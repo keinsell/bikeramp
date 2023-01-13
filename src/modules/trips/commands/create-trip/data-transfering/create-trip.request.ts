@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsDateString } from 'class-validator'
+import { IsNotEmpty, IsDateString, IsNumber, IsPositive } from 'class-validator'
 import { Type } from 'class-transformer'
 import { ApiProperty } from '@nestjs/swagger'
 
@@ -20,11 +20,12 @@ export class CreateTripRequest {
   public destination_address: string
 
   @IsNotEmpty()
-  @Type(() => Number)
+  @IsNumber({ allowNaN: false, allowInfinity: false, maxDecimalPlaces: 2 })
+  @IsPositive()
   @ApiProperty({
     type: Number,
     description: 'Package price in PLN',
-    example: 100,
+    example: Number(Math.random() * 100).toFixed(2),
   })
   public price: number
 
