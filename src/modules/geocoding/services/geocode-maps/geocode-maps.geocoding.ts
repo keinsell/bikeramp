@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common'
 import { Coordinates } from '../../entities/coordinates'
 import { GeocodingService } from '../../geocoding.adapter'
 import got from 'got'
+import { Result, ResultAsync, err, ok } from 'neverthrow'
+import { InvalidAddressError } from '../../errors/invalid-address.error'
 
 interface GeocodeMapsResponse {
   place_id: number
@@ -20,17 +22,21 @@ interface GeocodeMapsResponse {
 
 @Injectable()
 export class GeocodeMapsGeocodingService extends GeocodingService {
-  public async getCoordinates(address: string): Promise<Coordinates> {
-    // https://geocode.maps.co/search?q=ul.+Kościuszki+1,+Warszawa
-    // https://geocode.maps.co/search?q=%7Baddress%7D
-    const response = await got(`https://geocode.maps.co/search?q=${address}`).json<GeocodeMapsResponse[]>()
+  public async getCoordinates(address: string): Promise<Result<Coordinates, InvalidAddressError>> {
+    const response = await got(`https://geocode.maps.co/search?q=${address}`).json<[GeocodeMapsResponse?]>()
 
-    const { lat, lon } = response[0]
+    const location = response[0]
 
-    if (!lat || !lon) {
-      throw new Error('No coordinates found')
+    if (!location) {
+      return err(new InvalidAddressError(`Address ${address} is invalid or does not exist.`))
     }
 
-    return new Coordinates(Number.parseFloat(lat), Number.parseFloat(lon))
+    const { lat, lon } = location
+
+    if (!lat || !lon) {
+      return err(new InvalidAddressError(`Address ${address} is invalid or does not exist.`))
+    }
+
+    return ok(new Coordinates(Number.parseFloat(lat), Number.parseFloat(lon)))
   }
 }
