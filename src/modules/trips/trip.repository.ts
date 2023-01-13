@@ -5,7 +5,7 @@ import { Repository } from '../../common/persistance/repository'
 import { PrismaService } from '../../infrastructure/prisma/prisma.service'
 import { Sql } from '@prisma/client/runtime'
 import { Prisma } from '@prisma/client'
-import { getStartAndEndDateOfCurrentWeek } from '../../utilities/get-week-dates'
+import { getStartAndEndDateOfCurrentWeek } from '../../utilities/get-week-dates/get-week-dates'
 
 @Injectable()
 export class TripRepository implements Repository<Trip> {
