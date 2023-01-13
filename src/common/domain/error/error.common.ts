@@ -1,3 +1,5 @@
+import { ErrorResponse } from './error.response'
+
 export abstract class DomainError {
   public readonly name: string
   public readonly message: string
@@ -11,5 +13,11 @@ export abstract class DomainError {
     this.cause = cause
     this.code = code
     this.meta = meta
+  }
+
+  toJSON(): ErrorResponse {
+    return {
+      message: this.message,
+    }
   }
 }
