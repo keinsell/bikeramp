@@ -37,7 +37,7 @@ export class CreateTripService implements Usecase<CreateTripRequest, Result<Crea
 
     const distance = coordinatedOfStartingPoint.getDistanceBetweenCoordinates(coordinatedOfDestinationPoint)
 
-    const price = dinero({ amount: request.price * 100, currency: PLN })
+    const price = dinero({ amount: Number.parseFloat((request.price * 100).toFixed(2)), currency: PLN })
 
     let trip = new Trip({
       startAddress: request.start_address,
