@@ -36,6 +36,8 @@ export class CreateTripService implements Usecase<CreateTripRequest, CreateTripR
 
     const formattedPrice = toDecimal(trip.properties.price, ({ value, currency }) => `${value} ${currency.code}`)
 
+    console.log(await this.tripRepository.getDistanceAndPriceFromTripsInThisWeek())
+
     return {
       id: trip.id,
       startAddress: trip.properties.startAddress,

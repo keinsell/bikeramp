@@ -11,6 +11,7 @@ import { PrismaService } from '../../infrastructure/prisma/prisma.service'
 @Module({
   imports: [],
   controllers: [CreateTripController],
+  exports: [TripMapper, TripRepository],
   providers: [
     CreateTripService,
     TripRepository,
