@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { Coordinates } from '../../entities/coordinates'
+import { Coordinates } from '../../entities/coordinates/coordinates'
 import { GeocodingService } from '../../geocoding.adapter'
 import got from 'got'
 import { Result, ResultAsync, err, ok } from 'neverthrow'

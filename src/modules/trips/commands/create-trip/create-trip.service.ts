@@ -10,7 +10,7 @@ import { Usecase } from '../../../../common/domain/usecase/usecase'
 import { Formatter } from '../../../../utilities/formatter'
 import { InvalidAddressError } from '../../../geocoding/errors/invalid-address.error'
 import { Result, err, ok } from 'neverthrow'
-import { Coordinates } from '../../../geocoding/entities/coordinates'
+import { Coordinates } from '../../../geocoding/entities/coordinates/coordinates'
 
 @Injectable()
 export class CreateTripService implements Usecase<CreateTripRequest, Result<CreateTripResponse, InvalidAddressError>> {

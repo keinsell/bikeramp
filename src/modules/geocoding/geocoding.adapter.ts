@@ -1,5 +1,5 @@
 import { Result, ResultAsync } from 'neverthrow'
-import { Coordinates } from './entities/coordinates'
+import { Coordinates } from './entities/coordinates/coordinates'
 import { InvalidAddressError } from './errors/invalid-address.error'
 
 /**

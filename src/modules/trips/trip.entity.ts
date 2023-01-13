@@ -1,5 +1,5 @@
 import { Entity } from '../../common/domain/entity'
-import { Coordinates } from '../geocoding/entities/coordinates'
+import { Coordinates } from '../geocoding/entities/coordinates/coordinates'
 import { Distance } from '../geocoding/entities/distance'
 import { Dinero } from 'dinero.js'
 
