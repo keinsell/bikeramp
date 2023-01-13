@@ -23,23 +23,17 @@ export class CreateTripService implements Usecase<CreateTripRequest, Result<Crea
     let coordinatedOfStartingPoint: Coordinates
     let coordinatedOfDestinationPoint: Coordinates
 
-    coordinatedOfStartingPointRequest.match(
-      (coordinates) => {
-        coordinatedOfStartingPoint = coordinates
-      },
-      (error) => {
-        return err(error)
-      },
-    )
+    if (coordinatedOfStartingPointRequest.isErr()) {
+      return err(coordinatedOfStartingPointRequest.error)
+    } else {
+      coordinatedOfStartingPoint = coordinatedOfStartingPointRequest.value
+    }
 
-    coordinatedOfDestinationPointRequest.match(
-      (coordinates) => {
-        coordinatedOfDestinationPoint = coordinates
-      },
-      (error) => {
-        return err(error)
-      },
-    )
+    if (coordinatedOfDestinationPointRequest.isErr()) {
+      return err(coordinatedOfDestinationPointRequest.error)
+    } else {
+      coordinatedOfDestinationPoint = coordinatedOfDestinationPointRequest.value
+    }
 
     const distance = coordinatedOfStartingPoint.getDistanceBetweenCoordinates(coordinatedOfDestinationPoint)
 

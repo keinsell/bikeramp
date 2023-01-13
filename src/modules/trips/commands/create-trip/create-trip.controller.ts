@@ -14,6 +14,7 @@ export class CreateTripController extends ControllerExecutor {
 
   @Post('/api/trips')
   @ApiCreatedResponse({ description: 'Successfully saved trip.', type: CreateTripResponse })
+  @ApiCreatedResponse({ description: 'Invalid address', type: BadRequestException })
   async executeImplementation(@Body() body: CreateTripRequest): Promise<CreateTripResponse> {
     const response = await this.service.execute(body)
 
