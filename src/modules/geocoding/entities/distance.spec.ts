@@ -13,6 +13,6 @@ describe('Distance', () => {
 
   it('should return distance in kilometers', () => {
     const distance = Distance.fromMeters(1000)
-    expect(distance.toString()).toBe('1.00km')
+    expect(distance.toString()).toBe('1km')
   })
 })
