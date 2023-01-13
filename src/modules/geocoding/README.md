@@ -1,8 +1,6 @@
 # `geocoding`
 
-Geocoding is a service which is supposed to get coordinates from provided address string with `getCoordinates()` method,
-additionally service should be able to calculate distance between coordinates by `getDistanceBetweenCoordinates()`
-method.
+Geocoding is a service which is supposed to get coordinates from provided address string with `getCoordinates()` method.
 
 Implementations to `GeocodingService` adapter contained in `geocoding.adapter.ts` are contained in `services` directory.
 
