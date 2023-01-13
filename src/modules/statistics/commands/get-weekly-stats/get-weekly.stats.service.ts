@@ -5,6 +5,7 @@ import { TripRepository } from '../../../trips/trip.repository'
 import { GetWeeklyStatsResponse } from './get-weekly.stats.response'
 import { PLN } from '@dinero.js/currencies'
 import { Injectable } from '@nestjs/common'
+import { Formatter } from '../../../../utilities/formatter'
 
 @Injectable()
 export class GetWeeklyStatsService implements Usecase<undefined, GetWeeklyStatsResponse> {
@@ -16,10 +17,7 @@ export class GetWeeklyStatsService implements Usecase<undefined, GetWeeklyStatsR
 
     return {
       total_distance: new Distance(distance).toString(),
-      total_price: toDecimal(
-        dinero({ amount: price * 100, currency: PLN }),
-        ({ value, currency }) => `${value} ${currency.code}`,
-      ),
+      total_price: Formatter.formatFiat(price),
     }
   }
 }
