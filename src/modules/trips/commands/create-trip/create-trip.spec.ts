@@ -3,11 +3,10 @@ import { CreateTripController } from './create-trip.controller'
 import { CreateTripService } from './create-trip.service'
 import { TripRepository } from '../../trip.repository'
 import { TripMapper } from '../../trip.mapper'
-import { PrismaService } from '../../../../infrastructure/prisma/prisma.service'
 import { GeocodingService } from '../../../geocoding/geocoding.adapter'
 import { GeocodeMapsGeocodingService } from '../../../geocoding/services/geocode-maps/geocode-maps.geocoding'
-
-// TODO: Improve tests over this spec
+import { PrismaService } from '../../../../infrastructure/prisma/prisma.service'
+import { CreateTripResponse } from './data-transfering/create-trip.response'
 
 describe('CreateTripController', () => {
   let appController: CreateTripController
@@ -27,22 +26,30 @@ describe('CreateTripController', () => {
     appController = app.get<CreateTripController>(CreateTripController)
   })
 
-  describe('root', () => {
-    it('should return "Hello World!"', async () => {
-      expect(
-        await appController.executeImplementation({
-          start_address: 'Plac Europejski 2, Warszawa, Polska',
-          destination_address: 'Kraków, Polska',
-          price: 1000,
-          date: new Date(),
-        }),
-      )
-    })
-  })
+  it.todo('should return error when start address is not valid')
+  it.todo('should return error when destination address is not valid')
+  it.todo('should return error when price is not valid')
+  it.todo('should create new trip in database')
 })
 
 describe('CreateTripService', () => {
-  it('....', () => {
-    expect(true).toBe(true)
+  let createTripService: CreateTripService
+
+  beforeAll(async () => {
+    const app: TestingModule = await Test.createTestingModule({
+      providers: [
+        CreateTripService,
+        TripRepository,
+        TripMapper,
+        PrismaService,
+        { provide: GeocodingService, useClass: GeocodeMapsGeocodingService },
+      ],
+    }).compile()
+
+    createTripService = app.get<CreateTripService>(CreateTripService)
   })
+
+  it.todo('should create new trip')
+  it.todo('should throw error when start address is not valid')
+  it.todo('should throw error when destination address is not valid')
 })

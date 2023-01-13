@@ -12,7 +12,7 @@ import { GeocodingModule } from '../geocoding/geocoding.module'
 @Module({
   imports: [PrismaModule, GeocodingModule],
   controllers: [CreateTripController],
-  exports: [TripMapper, TripRepository],
   providers: [CreateTripService, TripRepository, TripMapper],
+  exports: [TripMapper, TripRepository],
 })
 export class TripModule {}
