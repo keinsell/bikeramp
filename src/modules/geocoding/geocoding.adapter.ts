@@ -1,4 +1,6 @@
+import { Result, ResultAsync } from 'neverthrow'
 import { Coordinates } from './entities/coordinates'
+import { InvalidAddressError } from './errors/invalid-address.error'
 
 /**
  * Geocoding is a service which is supposed to get coordinates from provided address string with `getCoordinates()` method.
@@ -17,5 +19,5 @@ export class AppModule {}
 ```
  */
 export abstract class GeocodingService {
-  public abstract getCoordinates(address: string): Promise<Coordinates>
+  public abstract getCoordinates(address: string): Promise<Result<Coordinates, InvalidAddressError>>
 }

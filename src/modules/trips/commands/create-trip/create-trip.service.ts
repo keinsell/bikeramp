@@ -8,15 +8,32 @@ import { dinero } from 'dinero.js'
 import { PLN } from '@dinero.js/currencies'
 import { Usecase } from '../../../../common/domain/usecase/usecase'
 import { Formatter } from '../../../../utilities/formatter'
+import { InvalidAddressError } from '../../../geocoding/errors/invalid-address.error'
+import { Result, err, ok } from 'neverthrow'
+import { Coordinates } from '../../../geocoding/entities/coordinates'
 
 @Injectable()
-export class CreateTripService implements Usecase<CreateTripRequest, CreateTripResponse> {
+export class CreateTripService implements Usecase<CreateTripRequest, Result<CreateTripResponse, InvalidAddressError>> {
   constructor(private geocodingService: GeocodingService, private tripRepository: TripRepository) {}
 
-  async execute(request: CreateTripRequest): Promise<CreateTripResponse> {
-    // TODO: These services can throw, add neverthrow library to use left/right responses
-    const coordinatedOfStartingPoint = await this.geocodingService.getCoordinates(request.start_address)
-    const coordinatedOfDestinationPoint = await this.geocodingService.getCoordinates(request.destination_address)
+  async execute(request: CreateTripRequest): Promise<Result<CreateTripResponse, InvalidAddressError>> {
+    const coordinatedOfStartingPointRequest = await this.geocodingService.getCoordinates(request.start_address)
+    const coordinatedOfDestinationPointRequest = await this.geocodingService.getCoordinates(request.destination_address)
+
+    let coordinatedOfStartingPoint: Coordinates
+    let coordinatedOfDestinationPoint: Coordinates
+
+    if (coordinatedOfStartingPointRequest.isErr()) {
+      return err(coordinatedOfStartingPointRequest.error)
+    } else {
+      coordinatedOfStartingPoint = coordinatedOfStartingPointRequest.value
+    }
+
+    if (coordinatedOfDestinationPointRequest.isErr()) {
+      return err(coordinatedOfDestinationPointRequest.error)
+    } else {
+      coordinatedOfDestinationPoint = coordinatedOfDestinationPointRequest.value
+    }
 
     const distance = coordinatedOfStartingPoint.getDistanceBetweenCoordinates(coordinatedOfDestinationPoint)
 
@@ -34,13 +51,13 @@ export class CreateTripService implements Usecase<CreateTripRequest, CreateTripR
 
     trip = await this.tripRepository.save(trip)
 
-    return {
+    return ok({
       id: trip.id,
       startAddress: trip.properties.startAddress,
       endAddress: trip.properties.endAddress,
       price: Formatter.formatFiat(trip.properties.price.toJSON().amount / 100),
       date: trip.properties.date,
       distance: trip.properties.distance.toString(),
-    }
+    })
   }
 }

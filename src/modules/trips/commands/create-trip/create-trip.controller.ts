@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common'
+import { BadRequestException, Body, Controller, Post } from '@nestjs/common'
 import { CreateTripService } from './create-trip.service'
 import { CreateTripResponse } from './data-transfering/create-trip.response'
 import { CreateTripRequest } from './data-transfering/create-trip.request'
@@ -14,10 +14,14 @@ export class CreateTripController extends ControllerExecutor {
 
   @Post('/api/trips')
   @ApiCreatedResponse({ description: 'Successfully saved trip.', type: CreateTripResponse })
+  @ApiCreatedResponse({ description: 'Invalid address', type: BadRequestException })
   async executeImplementation(@Body() body: CreateTripRequest): Promise<CreateTripResponse> {
     const response = await this.service.execute(body)
-    // TODO: Return either result or error
 
-    return response
+    if (response.isErr()) {
+      throw new BadRequestException(response.error.message, response.error.code)
+    }
+
+    return response.unwrapOr(undefined)
   }
 }
