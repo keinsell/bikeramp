@@ -1,10 +1,10 @@
 {
   "name": "bikeramp",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "private": true,
-  "description": "",
-  "license": "UNLICENSED",
-  "author": "",
+  "description": "🚲 Imagine you are a bike courier and you want to build a system that will help you track your rides during delivery of packages: how many kilometers did you ride on each day and how much did customer pay for delivery. The app will help you to control your work.",
+  "license": "MIT",
+  "author": "Jakub Olan <keinsell@protonmail.com> (https://github.com/keinsell)",
   "scripts": {
     "build": "nest build",
     "db:generate": "prisma generate",
