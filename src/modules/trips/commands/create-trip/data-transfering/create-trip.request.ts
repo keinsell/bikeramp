@@ -34,7 +34,7 @@ export class CreateTripRequest {
   @ApiProperty({
     type: Date,
     description: 'Date in format `2020-12-31`',
-    example: '2020-12-31',
+    example: new Date().toISOString(),
   })
   public date: Date
 }
