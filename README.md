@@ -20,6 +20,7 @@ services for the application to function. Use the following commands to set up `
 machine.
 
 ```bash
+git clone git@github.com:keinsell/bikeramp.git && cd bikeramp
 cp example.env .env
 docker-compose up -d
 docker exec -it bikeramp-server yarn db:push # Sometimes you may need to restart a server with `docker restart bikeramp-server`
@@ -59,6 +60,7 @@ available PostgresSql database, additionally your machine should contain the sof
 - `yarn@1.19.2`
 
 ```bash
+git clone git@github.com:keinsell/bikeramp.git && cd bikeramp
 cp example.env .env
 yarn install
 yarn build
@@ -66,3 +68,12 @@ yarn db:push
 node dist/main.js
 # Voila! Application is running at http://localhost:1337
 ```
+
+## Documentation
+
+Applicaiton provides build-in OpenAPI 3.0 Documentation available at `baseUrl`, so if your application in running on
+`localhost:1337` it should be available by `http://localhost:1337`.
+
+## License, Contributing etc.
+
+I'm too lazy for that, sorry.
