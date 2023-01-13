@@ -7,16 +7,12 @@ import { GeocodingService } from '../geocoding/geocoding.adapter'
 import { GeocodeMapsGeocodingService } from '../geocoding/services/geocode-maps/geocode-maps.geocoding'
 import { CreateTripController } from './commands/create-trip/create-trip.controller'
 import { PrismaModule } from '../../infrastructure/prisma/prisma.module'
+import { GeocodingModule } from '../geocoding/geocoding.module'
 
 @Module({
-  imports: [PrismaModule],
+  imports: [PrismaModule, GeocodingModule],
   controllers: [CreateTripController],
   exports: [TripMapper, TripRepository],
-  providers: [
-    CreateTripService,
-    TripRepository,
-    TripMapper,
-    { provide: GeocodingService, useClass: GeocodeMapsGeocodingService },
-  ],
+  providers: [CreateTripService, TripRepository, TripMapper],
 })
 export class TripModule {}
