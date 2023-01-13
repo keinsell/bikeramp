@@ -4,11 +4,11 @@ import { CreateTripResponse } from './data-transfering/create-trip.response'
 import { TripRepository } from '../../trip.repository'
 import { CreateTripRequest } from './data-transfering/create-trip.request'
 import { Trip } from '../../trip.entity'
-import { dinero, toDecimal } from 'dinero.js'
+import { dinero } from 'dinero.js'
 import { PLN } from '@dinero.js/currencies'
 import { Usecase } from '../../../../common/domain/usecase/usecase'
+import { Formatter } from '../../../../utilities/formatter'
 
-// TODO:
 @Injectable()
 export class CreateTripService implements Usecase<CreateTripRequest, CreateTripResponse> {
   constructor(private geocodingService: GeocodingService, private tripRepository: TripRepository) {}
@@ -34,15 +34,11 @@ export class CreateTripService implements Usecase<CreateTripRequest, CreateTripR
 
     trip = await this.tripRepository.save(trip)
 
-    const formattedPrice = toDecimal(trip.properties.price, ({ value, currency }) => `${value} ${currency.code}`)
-
-    console.log(await this.tripRepository.getDistanceAndPriceFromTripsInThisWeek())
-
     return {
       id: trip.id,
       startAddress: trip.properties.startAddress,
       endAddress: trip.properties.endAddress,
-      price: formattedPrice,
+      price: Formatter.formatFiat(trip.properties.price.toJSON().amount / 100),
       date: trip.properties.date,
       distance: trip.properties.distance.toString(),
     }

@@ -3,7 +3,9 @@ import { INestApplication } from '@nestjs/common'
 import * as request from 'supertest'
 import { AppModule } from '../src/application/app.module'
 
-describe('AppController (e2e)', () => {
+// TODO: Przetestować to na powaznie...
+
+describe('get-monthly-stats (e2e)', () => {
   let app: INestApplication
 
   beforeEach(async () => {
@@ -15,7 +17,7 @@ describe('AppController (e2e)', () => {
     await app.init()
   })
 
-  it('/ (GET)', () => {
-    return request(app.getHttpServer()).get('/').expect(200).expect('Hello World!')
+  it('/api/stats/monthly (GET)', () => {
+    return request(app.getHttpServer()).get('/api/stats/monthly').expect(200)
   })
 })
