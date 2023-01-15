@@ -1,12 +1,12 @@
 import { Entity } from '../../common/domain/entity'
 import { Coordinates } from '../geocoding/entities/coordinates'
 import { Distance } from '../geocoding/entities/distance'
-import { Dinero } from 'dinero.js'
+import { Money } from './entities/money'
 
 interface TripProperties {
   startAddress: string
   endAddress: string
-  price: Dinero<number>
+  price: Money
   date: Date
   distance?: Distance
   startCoordinates?: Coordinates
