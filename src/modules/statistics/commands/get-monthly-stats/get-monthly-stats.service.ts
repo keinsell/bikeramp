@@ -20,7 +20,7 @@ export class GetMonthlyStatsService implements Usecase<undefined, GetMonthlyStat
         day: Formatter.formatDateToMonthAndDayOfMonthFormat(summarised.day),
         total_distance: Formatter.formatDistance(summarised.totalDistance),
         avg_ride: Formatter.formatDistance(summarised.averageDistance),
-        avg_price: Formatter.formatFiat(Money.fromFloat(summarised.averagePrice).toFloat()),
+        avg_price: Money.fromFloat(summarised.averagePrice).toString(),
       })
     })
 

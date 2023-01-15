@@ -1,11 +1,9 @@
-import { dinero, toDecimal } from 'dinero.js'
 import { Usecase } from '../../../../common/domain/usecase/usecase'
 import { Distance } from '../../../geocoding/entities/distance'
 import { TripRepository } from '../../../trips/trip.repository'
 import { GetWeeklyStatsResponse } from './get-weekly.stats.response'
-import { PLN } from '@dinero.js/currencies'
 import { Injectable } from '@nestjs/common'
-import { Formatter } from '../../../../utilities/formatter'
+import { Money } from '../../../trips/entities/money'
 
 @Injectable()
 export class GetWeeklyStatsService implements Usecase<undefined, GetWeeklyStatsResponse> {
@@ -17,7 +15,7 @@ export class GetWeeklyStatsService implements Usecase<undefined, GetWeeklyStatsR
 
     return {
       total_distance: new Distance(distance).toString(),
-      total_price: Formatter.formatFiat(price),
+      total_price: Money.fromFloat(price).toString(),
     }
   }
 }

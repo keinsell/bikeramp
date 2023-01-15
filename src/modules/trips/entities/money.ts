@@ -24,7 +24,14 @@ export class Money {
   }
 
   toString(): string {
-    return Formatter.formatFiat(parseFloat(toDecimal(this.baseAmount)))
+    const amountInDecimal = toDecimal(this.baseAmount)
+    let valueInSubunits = Number.parseFloat(amountInDecimal) * 100
+    valueInSubunits = Math.round(valueInSubunits)
+
+    return toDecimal(
+      dinero({ amount: valueInSubunits, currency: PLN }),
+      ({ value, currency }) => `${value}${currency.code}`,
+    )
   }
 
   toFloat(): number {
