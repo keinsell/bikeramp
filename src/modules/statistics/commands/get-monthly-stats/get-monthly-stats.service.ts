@@ -1,11 +1,9 @@
-import { dinero, toDecimal } from 'dinero.js'
 import { Usecase } from '../../../../common/domain/usecase/usecase'
-import { Distance } from '../../../geocoding/entities/distance'
 import { TripRepository } from '../../../trips/trip.repository'
-import { PLN } from '@dinero.js/currencies'
 import { Injectable } from '@nestjs/common'
 import { GetMonthlyStatsResponse } from './get-monthly-stats.response'
 import { Formatter } from '../../../../utilities/formatter'
+import { Money } from '../../../trips/entities/money'
 
 @Injectable()
 export class GetMonthlyStatsService implements Usecase<undefined, GetMonthlyStatsResponse[]> {
@@ -22,7 +20,7 @@ export class GetMonthlyStatsService implements Usecase<undefined, GetMonthlyStat
         day: Formatter.formatDateToMonthAndDayOfMonthFormat(summarised.day),
         total_distance: Formatter.formatDistance(summarised.totalDistance),
         avg_ride: Formatter.formatDistance(summarised.averageDistance),
-        avg_price: Formatter.formatFiat(summarised.averagePrice),
+        avg_price: Formatter.formatFiat(Money.fromFloat(summarised.averagePrice).toFloat()),
       })
     })
 

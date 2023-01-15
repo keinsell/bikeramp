@@ -5,11 +5,15 @@ import { Distance } from '../modules/geocoding/entities/distance'
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace Formatter {
   export function formatFiat(fiat: number) {
+    let valueInSubunits = Number.parseFloat(fiat.toFixed(2)) * 100
+    valueInSubunits = Math.round(valueInSubunits)
+
     return toDecimal(
-      dinero({ amount: Number.parseFloat(fiat.toFixed(2)) * 100, currency: PLN }),
+      dinero({ amount: valueInSubunits, currency: PLN }),
       ({ value, currency }) => `${value}${currency.code}`,
     )
   }
+
   export function formatDistance(distance: number) {
     return new Distance(distance).toString()
   }

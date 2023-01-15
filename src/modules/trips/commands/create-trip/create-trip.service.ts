@@ -4,13 +4,11 @@ import { CreateTripResponse } from './data-transfering/create-trip.response'
 import { TripRepository } from '../../trip.repository'
 import { CreateTripRequest } from './data-transfering/create-trip.request'
 import { Trip } from '../../trip.entity'
-import { dinero } from 'dinero.js'
-import { PLN } from '@dinero.js/currencies'
 import { Usecase } from '../../../../common/domain/usecase/usecase'
-import { Formatter } from '../../../../utilities/formatter'
 import { InvalidAddressError } from '../../../geocoding/errors/invalid-address.error'
 import { Result, err, ok } from 'neverthrow'
 import { Coordinates } from '../../../geocoding/entities/coordinates'
+import { Money } from '../../entities/money'
 
 @Injectable()
 export class CreateTripService implements Usecase<CreateTripRequest, Result<CreateTripResponse, InvalidAddressError>> {
@@ -37,7 +35,7 @@ export class CreateTripService implements Usecase<CreateTripRequest, Result<Crea
 
     const distance = coordinatedOfStartingPoint.getDistanceBetweenCoordinates(coordinatedOfDestinationPoint)
 
-    const price = dinero({ amount: Number.parseFloat((request.price * 100).toFixed(2)), currency: PLN })
+    const price = Money.fromFloat(request.price)
 
     let trip = new Trip({
       startAddress: request.start_address,
@@ -55,7 +53,7 @@ export class CreateTripService implements Usecase<CreateTripRequest, Result<Crea
       id: trip.id,
       startAddress: trip.properties.startAddress,
       endAddress: trip.properties.endAddress,
-      price: Formatter.formatFiat(trip.properties.price.toJSON().amount / 100),
+      price: trip.properties.price.toString(),
       date: trip.properties.date,
       distance: trip.properties.distance.toString(),
     })

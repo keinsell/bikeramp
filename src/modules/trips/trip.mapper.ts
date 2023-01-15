@@ -1,11 +1,10 @@
 import { Trip } from './trip.entity'
 import { Prisma, Trip as _Trip } from '@prisma/client'
 import { Injectable } from '@nestjs/common'
-import { dinero } from 'dinero.js'
-import { PLN } from '@dinero.js/currencies'
 import { Distance } from '../geocoding/entities/distance'
 import { DatabaseRecords } from '../../configuration/database-records'
 import { Mapper } from '../../common/persistance/mapper'
+import { Money } from './entities/money'
 
 @Injectable()
 export class TripMapper implements Mapper<Trip, DatabaseRecords.TripCreateRecord, DatabaseRecords.TripRecord> {
@@ -13,7 +12,7 @@ export class TripMapper implements Mapper<Trip, DatabaseRecords.TripCreateRecord
     return {
       startingAddress: entity.properties.startAddress,
       endingAddress: entity.properties.endAddress,
-      priceInPLN: entity.properties.price.toJSON().amount / 100,
+      priceInPLN: entity.properties.price.toFloat(),
       date: entity.properties.date,
       distanceInKilometers: entity.properties.distance.baseScalar,
     }
@@ -23,7 +22,7 @@ export class TripMapper implements Mapper<Trip, DatabaseRecords.TripCreateRecord
       {
         startAddress: record.startingAddress,
         endAddress: record.endingAddress,
-        price: dinero({ amount: record.priceInPLN * 100, currency: PLN }),
+        price: Money.fromFloat(record.priceInPLN),
         date: record.date,
         distance: new Distance(record.distanceInKilometers),
       },
