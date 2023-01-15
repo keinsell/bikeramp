@@ -7,15 +7,15 @@ import { InvalidAddressError } from './errors/invalid-address.error'
 
 Implementations to `GeocodingService` adapter contained in `geocoding.adapter.ts` are contained in `services` directory.
 
-Remember to choose implementation and reconnect it in `application/app.module.ts`.
+Remember to choose implementation and reconnect it in `geocoding.module.ts`.
 
 ```ts
 @Module({
   imports: [],
-  controllers: [AppController],
-  providers: [AppService, PrismaService, { provide: GeocodingService, useClass: MockGeocodingService }],
+  exports: [{ provide: GeocodingService, useClass: GeocodeMapsGeocodingService }],
+  providers: [{ provide: GeocodingService, useClass: GeocodeMapsGeocodingService }],
 })
-export class AppModule {}
+export class GeocodingModule {}
 ```
  */
 export abstract class GeocodingService {
