@@ -1,4 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
+import { Distance } from '../../../../geocoding/entities/distance'
+import { Money } from '../../../entities/money'
 
 export class CreateTripResponse {
   @ApiProperty({
@@ -9,7 +11,7 @@ export class CreateTripResponse {
 
   @ApiProperty({
     description: 'Date in ISO format',
-    example: '2020-12-31T00:00:00.000Z',
+    example: new Date().toISOString(),
   })
   date: Date
 
@@ -27,13 +29,13 @@ export class CreateTripResponse {
 
   @ApiProperty({
     description: 'Package price in PLN',
-    example: '1000.00 PLN',
+    example: Money.fromFloat(Math.random() * 1000).toString(),
   })
   price: string
 
   @ApiProperty({
     description: 'Distance in format `1.2 km`',
-    example: '252.17 km',
+    example: Distance.fromMeters(Math.random() * 1000).toString(),
   })
   distance: string
 }
