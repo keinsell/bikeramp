@@ -3,9 +3,8 @@ import { TripMapper } from './trip.mapper'
 import { Injectable } from '@nestjs/common'
 import { Repository } from '../../common/persistance/repository'
 import { PrismaService } from '../../infrastructure/prisma/prisma.service'
-import { Sql } from '@prisma/client/runtime'
-import { Prisma } from '@prisma/client'
-import { getStartAndEndDateOfCurrentWeek } from '../../utilities/get-week-dates/get-week-dates'
+import { previousMonday } from 'date-fns'
+import { nextSunday } from 'date-fns'
 
 @Injectable()
 export class TripRepository implements Repository<Trip> {
@@ -47,7 +46,8 @@ export class TripRepository implements Repository<Trip> {
 
   /** Summarise distance and prices from all trips that happened from monday to sunday in current week. */
   async getDistanceAndPriceFromTripsInThisWeek(): Promise<{ distance: number; price: number }> {
-    const { start: monday, end: sunday } = getStartAndEndDateOfCurrentWeek()
+    const monday = previousMonday(new Date())
+    const sunday = nextSunday(new Date())
 
     const execute = await this.prismaService.$queryRaw<
       [{ total_distance: number; total_price: number }]
