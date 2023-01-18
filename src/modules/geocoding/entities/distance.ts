@@ -20,4 +20,8 @@ export class Distance {
   static fromMeters(meters: number) {
     return new Distance(meters / 1000)
   }
+
+  static fromKilometers(kilometers: number) {
+    return new Distance(kilometers)
+  }
 }
